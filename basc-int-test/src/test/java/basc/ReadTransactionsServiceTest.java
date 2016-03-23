@@ -23,9 +23,8 @@ public class ReadTransactionsServiceTest {
     ReadTransactionsService readTransactionsService;
 
     @Test
-    @Ignore
     public void readLatestThreeTransactionsOfAccountWertpapierdepot() {
-        Account wertpapierdepot = new Account("Wertpapierdepot");
+        Account wertpapierdepot = new Account();
 
         List<Transaction> transactions = readTransactionsService.getLatestTransactions(3, wertpapierdepot);
 

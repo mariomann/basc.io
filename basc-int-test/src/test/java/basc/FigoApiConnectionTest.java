@@ -20,7 +20,7 @@ public class FigoApiConnectionTest {
 
         Set<String> accountNames = session.getAccounts()
                 .stream()
-                .map(a -> a.getName())
+                .map(Account::getName)
                 .collect(Collectors.toCollection(HashSet::new));
 
         Set<String> expectedNames = new HashSet<>(Arrays.asList("Girokonto", "Sparkonto", "Wertpapierdepot"));

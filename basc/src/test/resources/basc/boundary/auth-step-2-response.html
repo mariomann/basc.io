@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <title>figo connect</title>
+
+        <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="https://api.figo.me/static/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://api.figo.me/static/css/ladda-themeless.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://api.figo.me/static/css/style.css" />
+    </head>
+    <body>
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <div class="col-xs-4 navbar-brand"><div class="row">
+                        <a class="col-xs-5 col-xs-offset-1" href="#"><img alt='figo logo' src='https://api.figo.me/static/images/figo_logo.png'></img></a>
+                    </div></div>
+                </div>
+                <div class="collapse navbar-collapse">
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+        <div class="container">
+            <div id="user-modal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="login_form" action="/auth/login" method="post" accept-charset="UTF-8">
+                            <div class="modal-header"><h4 class="modal-title">Connect basc.io with figo</h4></div>
+                            <div class="modal-body">
+                                <div class="content-pane">
+                                    <div class="leadin">basc.io is requesting permission to do the following:</div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" checked disabled />Read my basic account details</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" checked disabled />Read my account balance</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" checked disabled />Read my transactions</label>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <ul id="requests">
+                                    </ul>
+
+                                    <div class="leadin">Please select the accounts which basc.io will be allowed to access:</div>
+                                        <div class="form-group" id='accounts'>
+                                            <div class="input-group">
+                                                <tr>
+                                                    <div class="checkbox with-icon">
+                                                        <label>
+                                                            <input type="checkbox" id="A1238764.1" name="A1238764.1" value="1" />
+                                                            <img src="https://api.figo.me/assets/images/accounts/default.png" style="vertical-align: middle; margin-right: 5px;" />
+                                                            Demobank - Girokonto (4711951500)
+                                                        </label>
+                                                    </div>
+<tr>
+                                                    <div class="checkbox with-icon">
+                                                        <label>
+                                                            <input type="checkbox" id="A1238764.2" name="A1238764.2" value="1" />
+                                                            <img src="https://api.figo.me/assets/images/accounts/default.png" style="vertical-align: middle; margin-right: 5px;" />
+                                                            Demobank - Sparkonto (4711951501)
+                                                        </label>
+                                                    </div>
+<tr>
+                                                    <div class="checkbox with-icon">
+                                                        <label>
+                                                            <input type="checkbox" id="A1238764.3" name="A1238764.3" value="1" />
+                                                            <img src="https://api.figo.me/assets/images/accounts/default.png" style="vertical-align: middle; margin-right: 5px;" />
+                                                            Demobank - Wertpapierdepot (4711951502)
+                                                        </label>
+                                                    </div>
+                                            </div>
+                                        </div>
+
+                                    <input type="hidden" name="id" value="L6aTA1PJrznW0hocxI7Q-Lv1EhkqBA2uz4S_wlrduCNg" />
+                                    <input type="hidden" name="step" value="3" />
+                                </div>
+                                <div class="button-pane input-group">
+                                    <button class="btn ladda-button ok_button" type="button" data-size='xs' data-style='slide-left' disabled><span class="ladda-label">Connect</span></button>&nbsp;
+                                    <button class="btn ladda-button cancel_button" type="button" data-size='xs' data-style='slide-left'><span class="ladda-label">Cancel</span></button>&nbsp;
+                                    <button class="btn ladda-button right_button" type="button" data-size='xs' data-style='slide-left'><span class="ladda-label">Manage accounts</span></button>&nbsp;
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="http://figo.me/allgemeine-geschaftsbedingungen/" target="_blank">Terms of Service</a>
+                                <div class="spacer">|</div><a href="http://figo.me/datenschutzerklarung/">Privacy Policy</a>
+                                <div class="spacer">|</div><a href="http://figo.me/impressum/" target="_blank">Imprint</a>
+                                <div class="spacer">|</div><a href="http://figo.me/features/" target="_blank">About figo</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <form id="redirect_form" action="http://localhost:3000" method="get" accept-charset="UTF-8">
+                <input type="hidden" name="error" value="access_denied">
+                <input type="hidden" name="error_description" value="Cancelled by user.">
+                <input type="hidden" name="state" value="frank">
+            </form>
+        </div>
+
+        <!-- Only JavaScript below here -->
+        <script src="https://api.figo.me/static/js/spin.min.js"></script>
+        <script src="https://api.figo.me/static/js/ladda.min.js"></script>
+        <script src="https://api.figo.me/static/js/jquery.js"></script>
+        <script src="https://api.figo.me/static/js/ladda.jquery.min.js"></script>
+        <script type="text/javascript">
+            function openLink(url) {
+                window.close();
+                window.open(url);
+                return false;
+            };
+
+            $(document).ready(function() {
+                if (self == top) {
+                    $("body").show();
+                } else {
+                    top.location = self.location;
+                }
+
+                $(".ok_button").click(function() {
+                    $("#login_form").submit();
+                });
+                $(".cancel_button").click(function() {
+                    $("#redirect_form").submit();
+                    return false;
+                });
+                $(".right_button").click(function() {
+                    return openLink('https://home.figo.me/accounts');
+                });
+
+                $("#accounts input[type=checkbox]").change(function(){
+                    var count = $("#accounts input[type=checkbox]:checked").length;
+                    if(count > 0)
+                        $(".ok_button").removeAttr('disabled');
+                    else
+                        $(".ok_button").attr('disabled', true);
+                });
+            });
+        </script>
+    </body>
+</html>

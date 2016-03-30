@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <title>figo connect</title>
+
+        <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="https://api.figo.me/static/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://api.figo.me/static/css/ladda-themeless.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://api.figo.me/static/css/style.css" />
+    </head>
+    <body>
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <div class="col-xs-4 navbar-brand"><div class="row">
+                        <a class="col-xs-5 col-xs-offset-1" href="#"><img alt='figo logo' src='https://api.figo.me/static/images/figo_logo.png'></img></a>
+                    </div></div>
+                </div>
+                <div class="collapse navbar-collapse">
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+        <div class="container">
+            <div id="user-modal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="login_form" action="/auth/login" method="post" accept-charset="UTF-8">
+                            <div class="modal-header"><h4 class="modal-title">Connect basc.io with figo</h4></div>
+                            <div class='alerts'>
+                            </div>
+                            <div class="modal-body">
+                                <div class="content-pane">
+                                    <div class="leadin">In order to be able to use this feature, you will need to connect basc.io to your figo account. Please login here with your existing figo account or create a new one.</div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><a data-toggle="collapse" href="#collapse_why">Why?</a></h4>
+                                        </div>
+                                        <div id="collapse_why" class="panel-collapse collapse">
+                                            <div class="panel-body">By using the figo account we can guarantee you the best level of security. Your login credentials and private accounting information are only entered and processed in the figo account. Hosting the figo services solely in German data centers you can be assured, that your data is safe and secure. In the end you only have to connect your figo account to your service of choice and immediately you are able to securely use all its advantages.</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="username">EMail:</label>
+                                            <input class="form-control" type="text" id="username" name="username" placeholder="E-Mail"  />
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="password">Password:</label>
+                                            <input class="form-control" type="password" id="password" name="password" placeholder="Password" />
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="step" value="2">
+                                </div>
+                                <div class="button-pane input-group">
+                                    <div style="float: left; margin-top: 7px; font-size: 11px;">
+                                        <a href="#" onclick="return openLink('https://home.figo.me/forgotpassword');">I've forgotten my password!</a>
+                                    </div>
+                                    <button class="btn ladda-button ok_button" type="button" data-size='xs' data-style='slide-left'><span class="ladda-label">Login</span></button>&nbsp;
+                                    <button class="btn ladda-button cancel_button" type="button" data-size='xs' data-style='slide-left'><span class="ladda-label">Cancel</span></button>&nbsp;
+                                    <button class="btn ladda-button right_button" type="button" data-size='xs' data-style='slide-left'><span class="ladda-label">Sign Up</span></button>&nbsp;
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="http://figo.me/allgemeine-geschaftsbedingungen/" target="_blank">Terms of Service</a>
+                                <div class="spacer">|</div><a href="http://figo.me/datenschutzerklarung/">Privacy Policy</a>
+                                <div class="spacer">|</div><a href="http://figo.me/impressum/" target="_blank">Imprint</a>
+                                <div class="spacer">|</div><a href="http://figo.me/features/" target="_blank">About figo</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <form id="redirect_form" action="http://localhost:3000" method="get" accept-charset="UTF-8">
+                <input type="hidden" name="error" value="access_denied">
+                <input type="hidden" name="error_description" value="Cancelled by user.">
+                <input type="hidden" name="state" value="frank">
+            </form>
+        </div>
+
+        <!-- Only JavaScript below here -->
+        <script src="https://api.figo.me/static/js/spin.min.js"></script>
+        <script src="https://api.figo.me/static/js/ladda.min.js"></script>
+        <script src="https://api.figo.me/static/js/jquery.js"></script>
+        <script src="https://api.figo.me/static/js/ladda.jquery.min.js"></script>
+        <script src="https://api.figo.me/static/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function openLink(url) {
+                window.close();
+                window.open(url);
+                return false;
+            };
+
+            $(document).ready(function() {
+                if (self == top) {
+                    $("body").show();
+                    if (history.replaceState) {
+                        history.replaceState(history.state, document.title, "/auth/login")
+                    }
+                } else {
+                    top.location = self.location;
+                }
+
+                $(".ok_button").click(function() {
+                    $("#login_form").submit();
+                });
+
+                $(".cancel_button").click(function() {
+                    $("#redirect_form").submit();
+                    return false;
+                });
+
+                $(".right_button").click(function() {
+                    return openLink('https://home.figo.me/signup?affiliate_client_id=CWbLPBQGjG7yqZ5Mg0XdMOHV1Odig0Z-4AteZrUalHqI');
+                });
+
+                $('.collapse').collapse({
+                    toggle: false,
+                });
+            });
+        </script>
+    </body>
+</html>

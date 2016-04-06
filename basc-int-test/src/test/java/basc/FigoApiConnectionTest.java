@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 
 public class FigoApiConnectionTest {
+
     @Test
     public void readAccountNames() throws FigoException, IOException {
         FigoSession session = new FigoSession("ASHWLIkouP2O6_bgA2wWReRhletgWKHYjLqDaqb0LFfamim9RjexTo22ujRIP_cjLiRiSyQXyt2kM1eXU2XLFZQ0Hro15HikJQT_eNeT_9XQ");

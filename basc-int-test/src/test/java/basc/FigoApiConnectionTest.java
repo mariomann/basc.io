@@ -11,7 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class FigoApiConnectionTest {
 
@@ -26,7 +29,7 @@ public class FigoApiConnectionTest {
 
         Set<String> expectedNames = new HashSet<>(Arrays.asList("Girokonto", "Sparkonto", "Wertpapierdepot"));
 
-        assertEquals(expectedNames, accountNames);
+        assertThat(accountNames, is(equalTo(expectedNames)));
     }
 
 }

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
+
+import static org.hamcrest.number.OrderingComparison.greaterThan;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(App.class)
@@ -28,8 +30,9 @@ public class AccountRepositoryTest {
         accountRepository.save(a);
 
         Account aRead = accountRepository.findByFigoId(a.getFigoId());
-        assertEquals(a, aRead);
-        assertTrue(aRead.getId() > 0);
+
+        assertThat(aRead, is(equalTo(a)));
+        assertThat(aRead.getId(), greaterThan(0));
     }
 
 }

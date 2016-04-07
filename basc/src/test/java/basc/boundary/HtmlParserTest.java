@@ -11,9 +11,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class HtmlParserTest {
 
@@ -27,7 +25,7 @@ public class HtmlParserTest {
         String expected = "LtQvU-RIq7_OJaTRN0pMfAihcxnbHpM5EPkZbh6ctVZw";
         String actual = htmlParser.getResponseId(getHtml("auth-step-1-response.html"));
 
-        assertEquals(expected, actual);
+        assertThat(actual, is(equalTo(expected)));
     }
 
     @Test
@@ -35,7 +33,7 @@ public class HtmlParserTest {
         String expected = "2";
         String actual = htmlParser.getResponseStep(getHtml("auth-step-1-response.html"));
 
-        assertEquals(expected, actual);
+        assertThat(actual, is(equalTo(expected)));
     }
 
     @Test

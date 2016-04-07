@@ -8,7 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class ConfigTest {
 
@@ -22,7 +24,7 @@ public class ConfigTest {
         Properties config = Config.getClientConfig(getClass().getResource("BascClient.config").getPath());
         String actualClientId = config.getProperty("client_id");
 
-        assertEquals(expectedClientId, actualClientId);
+        assertThat(actualClientId, is(equalTo(expectedClientId)));
     }
 
     @Test

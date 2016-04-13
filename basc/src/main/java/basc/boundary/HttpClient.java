@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class HttpClient {
@@ -18,15 +21,29 @@ public class HttpClient {
     org.apache.commons.httpclient.HttpClient httpClient;
 
     public Response<String> get(String url) {
-        GetMethod getMethod = new GetMethod(url);
+        return get(url, Collections.emptyMap());
+    }
+
+    public Response<String> get(String url, Map<String, String> query) {
+        String parameter = query.entrySet().stream()
+            .map(e -> e.getKey() + "=" + e.getValue())
+            .collect(Collectors.joining("&"));
+        GetMethod getMethod = new GetMethod(url + "?" + parameter);
 
         return execute(getMethod);
     }
 
     public Response<String> post(String url) {
+        return post(url, Collections.emptyMap());
+    }
+
+    public Response<String> post(String url, Map<String, String> body) {
         PostMethod postMethod = new PostMethod(url);
-        NameValuePair[] data = {};
-        postMethod.setRequestBody(data);
+
+        NameValuePair[] pairs = body.entrySet().stream()
+            .map(e -> new NameValuePair(e.getKey(), e.getValue()))
+            .toArray(NameValuePair[]::new);
+        postMethod.setRequestBody(pairs);
 
         return execute(postMethod);
     }

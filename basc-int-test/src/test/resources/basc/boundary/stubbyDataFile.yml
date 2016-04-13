@@ -1,0 +1,34 @@
+#more specific on top
+-  request:
+      method: GET
+      url: /
+      query:
+         lol: rofl
+         hehe: hihi
+
+   response:
+      status: 200
+      headers:
+         content-type: application/xml
+      body: <lol>rofl</lol><hehe>hihi</hehe>
+
+-  request:
+      method: [GET, POST]
+      url: /
+
+   response:
+      status: 200
+      headers:
+         content-type: application/json
+      body: Hello basc.io
+
+- request:
+    method: POST
+    url: /lol
+    post: lol=rofl&hehe=hihi
+
+  response:
+     status: 200
+     headers:
+       content-type: application/xml
+     body: <lol>rofl</lol><hehe>hihi</hehe>

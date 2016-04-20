@@ -2,3 +2,4 @@ target/
 .idea/
 *.iml
 basc/src/test/resources/basc/util/BascClient.config
+basc-int-test/src/test/resources/basc/controller/BascClient.config

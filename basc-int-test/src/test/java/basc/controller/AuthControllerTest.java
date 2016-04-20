@@ -26,7 +26,7 @@ public class AuthControllerTest {
     public void receiveValidAccessToken() throws IOException {
         Properties config = Config.getClientConfig(getClass().getResource("BascClient.config").getPath());
 
-        AuthenticationToken token = auth.receiveAccessToken(config.getProperty("client_id"), config.getProperty("client_secret"), "code", "ABC", config.getProperty("username"), config.getProperty("password"));
+        AuthenticationToken token = auth.receiveAccessToken(config.getProperty("client_id"), config.getProperty("client_secret"), "ABC", config.getProperty("username"), config.getProperty("password"));
 
         assertThat(token.isValidAt(LocalDateTime.now()), is(true));
     }
